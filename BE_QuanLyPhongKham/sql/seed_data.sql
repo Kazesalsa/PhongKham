@@ -44,14 +44,35 @@ INSERT INTO dich_vu (ma_dich_vu, ten_dich_vu, don_gia, mo_ta, trang_thai) VALUES
 
 -- 6. Tao lich hen cho hom nay
 INSERT INTO lich_hen (ma_lich_hen, ma_benh_nhan, ma_bac_si, thoi_gian_hen, so_thu_tu, trang_thai, ghi_chu) VALUES
-('LH001', 'BN001', 'BS001', GETDATE(), 1, N'Chờ khám', N'Bệnh nhân đau đầu sốt nhẹ');
+('LH001', 'BN001', 'BS001', GETDATE(), 1, N'Chờ khám', N'Bệnh nhân đau đầu sốt nhẹ'),
+('LH002', 'BN002', 'BS001', GETDATE(), 2, N'Đã khám', N'Tái khám viêm họng');
+
+-- 7. Tao ho so kham cho lich hen LH002
+INSERT INTO ho_so_kham (ma_ho_so, ma_lich_hen, ma_benh_nhan, ma_bac_si, trieu_chung, chan_doan, loi_dan, ngay_kham) VALUES
+('HS001', 'LH002', 'BN002', 'BS001', N'Đau họng, sốt nhẹ, ho khan', N'Viêm họng cấp tính', N'Uống nhiều nước ấm, nghỉ ngơi, uống thuốc đúng liều', GETDATE());
+
+-- 8. Chi dinh dich vu cho ho so HS001
+INSERT INTO chi_dinh_dich_vu (ma_chi_dinh, ma_ho_so, ma_dich_vu, so_luong, don_gia, trang_thai, ket_qua) VALUES
+('CD001', 'HS001', 'DV001', 1, 150000, N'Đã có kết quả', N'Họng đỏ nhẹ, amidan không sưng to');
+
+-- 9. Ke don thuoc cho ho so HS001
+INSERT INTO don_thuoc (ma_don_thuoc, ma_ho_so, ma_thuoc, so_luong, cach_dung, huong_dan) VALUES
+('DT001', 'HS001', 'T001', 10, N'Ngày uống 2 lần, mỗi lần 1 viên', N'Uống sáng 1 viên, tối 1 viên sau khi ăn no');
+
+-- 10. Tao hoa don vien phi cho ho so HS001 (150.000 DV + 20.000 Thuoc = 170.000)
+INSERT INTO hoa_don (ma_hoa_don, ma_ho_so, tien_dich_vu, tien_thuoc, tien_giam_gia, tong_tien, hinh_thuc_thanh_toan, trang_thai, ngay_lap) VALUES
+('HD001', 'HS001', 150000, 20000, 0, 170000, N'Tiền mặt', N'Đã thanh toán', GETDATE());
 GO
 
--- 7. Dong bo lai cac Sequence de tranh trung lap ma tu sinh
+-- 11. Dong bo lai cac Sequence de tranh trung lap ma tu sinh
 ALTER SEQUENCE seq_nguoi_dung RESTART WITH 5;
 ALTER SEQUENCE seq_benh_nhan RESTART WITH 3;
 ALTER SEQUENCE seq_bac_si RESTART WITH 2;
-ALTER SEQUENCE seq_lich_hen RESTART WITH 2;
+ALTER SEQUENCE seq_lich_hen RESTART WITH 3;
+ALTER SEQUENCE seq_ho_so RESTART WITH 2;
+ALTER SEQUENCE seq_chi_dinh RESTART WITH 2;
+ALTER SEQUENCE seq_don_thuoc RESTART WITH 2;
+ALTER SEQUENCE seq_hoa_don RESTART WITH 2;
 ALTER SEQUENCE seq_thuoc RESTART WITH 4;
 ALTER SEQUENCE seq_dich_vu RESTART WITH 4;
 GO
