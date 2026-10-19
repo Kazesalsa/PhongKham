@@ -1,0 +1,17 @@
+# Node dependencies
+**/node_modules/
+**/.npm/
+
+# Maven target
+**/target/
+
+# Backup git directories
+**/.git_bak/
+
+# Environment and sensitive keys
+*.pem
+.env.local
+
+# OS files
+.DS_Store
+Thumbs.db
